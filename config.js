@@ -15,6 +15,6 @@ const CONFIG = {
   // To set/change the password: open generate-password-hash.html in your
   // browser (works offline, nothing is sent anywhere), type your password,
   // and paste BOTH values it gives you here.
-  SITE_PASSWORD_SALT: "bd65dbf08ac123c70783dc134a344451",
-  SITE_PASSWORD_HASH: "6aa45433cc16b1d2d6e712b8691396801359ce5228cb134c3882a5bed7f00e61"
+  SITE_PASSWORD_SALT: "446d09b823b8145f8a5ed94c0e12b8d4",
+  SITE_PASSWORD_HASH: "b7e2dc0d3187f42ead640f875f8e5a71da2ad096a72356c7aedb233552e6291d"
 };
