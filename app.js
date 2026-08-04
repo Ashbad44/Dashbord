@@ -173,6 +173,62 @@ document.querySelectorAll(".tabbtn").forEach(btn => {
   });
 });
 
+// ---------------- Print ----------------
+document.getElementById("btn-print").addEventListener("click", () => {
+  window.print();
+});
+
+// ---------------- Export a saved HTML snapshot ----------------
+function buildSnapshotHTML() {
+  const styleTag = document.querySelector("style").outerHTML;
+  const revSection = document.getElementById("page-revenue").cloneNode(true);
+  const cloSection = document.getElementById("page-closing").cloneNode(true);
+  revSection.classList.add("active");
+  cloSection.classList.add("active");
+  cloSection.style.marginTop = "34px";
+
+  const monthLabel = document.getElementById("rev-month-label")?.textContent.trim() || "";
+  const exportedAt = new Date().toLocaleString("ar-SA");
+
+  return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقرير محفوظ — ${monthLabel}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+${styleTag}
+<style>
+  body{background:#f4f6f6;}
+  .wrap{display:block !important; max-width:760px; margin:0 auto; padding:28px 18px 60px;}
+  .page{display:block !important; margin-bottom:10px;}
+  .saved-note{text-align:center;color:#6b7a7d;font-size:12.5px;margin-top:26px;}
+</style>
+</head>
+<body class="unlocked">
+<div class="wrap">
+  <div class="bismillah">بسم الله الرحمن الرحيم</div>
+  ${revSection.outerHTML}
+  ${cloSection.outerHTML}
+  <p class="saved-note">نسخة محفوظة بتاريخ ${exportedAt} — هذا ملف ثابت لا يتحدث تلقائياً</p>
+</div>
+</body>
+</html>`;
+}
+
+document.getElementById("btn-export-snapshot").addEventListener("click", () => {
+  const html = buildSnapshotHTML();
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const stamp = new Date().toISOString().slice(0, 10);
+  a.href = url;
+  a.download = `تقرير-شقق-ابو-بدر-${stamp}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
 // ---------------- Init ----------------
 loadAll();
 if (CONFIG.REFRESH_INTERVAL_MS > 0) {

@@ -128,10 +128,12 @@
     box-shadow:0 2px 5px rgba(0,0,0,0.08);
   }
   .subbar .cal-badge svg{width:17px;height:17px;color:var(--teal-900);}
+  .subbar{justify-content:center;}
   .subbar span{
     font-weight:700;
-    font-size:15px;
+    font-size:19px;
     color:var(--teal-900);
+    text-align:center;
   }
 
   /* ---- Table ---- */
@@ -157,8 +159,8 @@
   tbody td{
     padding:16px 8px;
     text-align:center;
-    font-weight:700;
-    font-size:14px;
+    font-weight:800;
+    font-size:18px;
     color:var(--ink);
     background:#fff;
     border-top:1px solid var(--line);
@@ -185,7 +187,8 @@
     background:#fff;
     display:flex;align-items:center;justify-content:center;
     font-weight:800;
-    font-size:17px;
+    font-size:18px;
+    text-align:center;
     color:var(--teal-900);
   }
   .totalbar .label{
@@ -227,6 +230,7 @@
     font-size:20px;
     font-weight:800;
     color:var(--ink);
+    text-align:center;
   }
   .statcard .circle{
     position:absolute;
@@ -289,7 +293,8 @@
   }
   .detail-row .amount{
     font-weight:800;
-    font-size:14.5px;
+    font-size:18px;
+    text-align:center;
     color:var(--ink);
   }
   .dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
@@ -384,8 +389,37 @@
   @media (max-width:420px){
     .header h1{font-size:18px;}
     thead th{font-size:12px;padding:11px 4px;}
-    tbody td{font-size:12.5px;padding:13px 4px;}
+    tbody td{font-size:15px;padding:13px 4px;}
     .statgrid{gap:10px;}
+    .subbar span{font-size:16px;}
+  }
+
+  /* ---- Toolbar (print / export) ---- */
+  .toolbar-actions{
+    display:flex;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .toolbar-actions button{
+    flex:1;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:10px 8px;
+    font-family:inherit;
+    font-weight:700;
+    font-size:13px;
+    color:var(--teal-900);
+    cursor:pointer;
+    box-shadow:var(--shadow);
+  }
+  .toolbar-actions button:active{background:var(--peach-bg);}
+
+  @media print{
+    body{background:#fff;}
+    .tabbar, .toolbar-actions, #status, #gate{display:none !important;}
+    .wrap{max-width:100%;padding:0;}
+    .table-card, .totalbar, .statcard, .details-card{box-shadow:none;}
   }
 </style>
 </head>
@@ -410,6 +444,11 @@
   <div class="tabbar">
     <button class="tabbtn active" data-page="revenue">إيرادات الفروع</button>
     <button class="tabbtn" data-page="closing">التقفيل الشهري</button>
+  </div>
+
+  <div class="toolbar-actions">
+    <button id="btn-print" type="button">🖨 طباعة الصفحة الحالية</button>
+    <button id="btn-export-snapshot" type="button">⬇ حفظ نسخة HTML لهذا الشهر</button>
   </div>
 
   <div id="status" class="status-banner">جاري تحميل البيانات…</div>
