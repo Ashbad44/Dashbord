@@ -180,16 +180,17 @@
     overflow:hidden;
     box-shadow:var(--shadow);
     margin-bottom:18px;
-    min-height:64px;
+    min-height:78px;
   }
   .totalbar .amount{
     flex:1;
     background:#fff;
     display:flex;align-items:center;justify-content:center;
     font-weight:900;
-    font-size:26px;
+    font-size:34px;
     text-align:center;
     color:var(--teal-900);
+    line-height:1.1;
   }
   .totalbar .label{
     flex:1;
@@ -214,7 +215,7 @@
     box-shadow:var(--shadow);
     padding:16px;
     position:relative;
-    min-height:118px;
+    min-height:134px;
   }
   .statcard .pill{
     display:inline-block;
@@ -227,10 +228,12 @@
   .statcard.blue .pill{background:var(--blue-accent-bg);color:var(--teal-900);}
   .statcard.green .pill{background:var(--green-accent-bg);color:var(--teal-900);}
   .statcard .value{
-    font-size:28px;
+    font-size:34px;
     font-weight:900;
     color:var(--ink);
     text-align:center;
+    line-height:1.1;
+    margin:6px 0;
   }
   .statcard .circle{
     position:absolute;
@@ -293,7 +296,7 @@
   }
   .detail-row .amount{
     font-weight:800;
-    font-size:18px;
+    font-size:20.5px;
     text-align:center;
     color:var(--ink);
   }
@@ -330,7 +333,7 @@
     background:#fff;
     box-shadow:var(--shadow);
   }
-  .status-banner.live{color:var(--green-accent);}
+  .status-banner.live{color:#d5342a;font-weight:700;}
   .status-banner.demo{color:#b98a4c;}
   .status-banner.error{color:#c0524a;}
 
@@ -392,8 +395,11 @@
     tbody td{font-size:15px;padding:13px 4px;}
     .statgrid{gap:10px;}
     .subbar span{font-size:16px;}
-    .totalbar .amount{font-size:20px;}
-    .statcard .value{font-size:22px;}
+    .totalbar{min-height:62px;}
+    .totalbar .amount{font-size:23px;}
+    .statcard{min-height:118px;}
+    .statcard .value{font-size:24px;}
+    .detail-row .amount{font-size:16px;}
   }
 
   /* ---- Toolbar (print / export) ---- */
@@ -418,10 +424,35 @@
   .toolbar-actions button:active{background:var(--peach-bg);}
 
   @media print{
+    *{-webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; color-adjust:exact !important;}
     body{background:#fff;}
     .tabbar, .toolbar-actions, #status, #gate{display:none !important;}
-    .wrap{max-width:100%;padding:0;}
-    .table-card, .totalbar, .statcard, .details-card{box-shadow:none;}
+    .wrap{max-width:100%;padding:6px;}
+    .bismillah{font-size:13px;margin-bottom:8px;}
+    .header{padding:10px 16px;margin-bottom:8px;box-shadow:none;border:1px solid var(--teal-900);}
+    .header .icon-badge{width:36px;height:36px;min-width:36px;}
+    .header .icon-badge svg{width:18px;height:18px;}
+    .header h1{font-size:16px;}
+    .subbar{padding:8px 12px;margin-bottom:8px;border:1px solid var(--line);}
+    .subbar span{font-size:14px;}
+    .table-card{box-shadow:none;border:1px solid var(--teal-900);margin-bottom:8px;}
+    thead th{padding:7px 6px;font-size:11px;}
+    tbody td{padding:7px 6px;font-size:13px;border-top:1px solid var(--line);}
+    .totalbar{box-shadow:none;border:1px solid var(--teal-900);min-height:44px;margin-bottom:8px;}
+    .totalbar .amount{font-size:19px;}
+    .totalbar .label{font-size:12.5px;}
+    .statgrid{gap:8px;margin-bottom:8px;}
+    .statcard{box-shadow:none;border:1px solid var(--line);min-height:auto;padding:10px;}
+    .statcard .pill{font-size:10.5px;padding:5px 9px;margin-bottom:4px;}
+    .statcard .value{font-size:18px;margin:2px 0;}
+    .statcard .circle{width:28px;height:28px;left:10px;bottom:10px;}
+    .statcard .circle svg{width:13px;height:13px;}
+    .details-card{box-shadow:none;border:1px solid var(--line);padding:12px;}
+    .details-head h2{font-size:14px;}
+    .detail-row{padding:7px 4px;}
+    .detail-row .label{font-size:12px;}
+    .detail-row .amount{font-size:14px;}
+    .footer{margin-top:8px;}
   }
 </style>
 </head>
@@ -597,11 +628,6 @@
         </thead>
         <tbody id="clo-transfers-body"><!-- JS --></tbody>
       </table>
-    </div>
-
-    <div class="totalbar">
-      <div class="amount" id="clo-transfers-total">0</div>
-      <div class="label">إجمالي التحويلات</div>
     </div>
 
     <div class="statgrid">

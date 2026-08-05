@@ -126,7 +126,6 @@ function renderClosing(data) {
       <td>${fmt(item.value)}</td>
     </tr>`).join("");
 
-  document.getElementById("clo-transfers-total").textContent = fmt(data.transfersTotal);
   document.getElementById("clo-cash-deposit").textContent = fmt(data.cashDeposit);
   document.getElementById("clo-cash-received").textContent = fmt(data.cashReceived);
 
@@ -154,7 +153,7 @@ async function loadAll() {
     ]);
     renderRevenue(revenue);
     renderClosing(closing);
-    setStatus("live", "متصل مباشرة بجوجل شيت • آخر تحديث: " + new Date().toLocaleTimeString("ar-SA"));
+    setStatus("live", "متصل مباشرة بجوجل شيت • آخر تحديث: " + new Date().toLocaleTimeString("ar-SA-u-nu-latn"));
   } catch (err) {
     console.error(err);
     renderRevenue(DEMO_REVENUE);
@@ -185,10 +184,9 @@ function buildSnapshotHTML() {
   const cloSection = document.getElementById("page-closing").cloneNode(true);
   revSection.classList.add("active");
   cloSection.classList.add("active");
-  cloSection.style.marginTop = "34px";
 
   const monthLabel = document.getElementById("rev-month-label")?.textContent.trim() || "";
-  const exportedAt = new Date().toLocaleString("ar-SA");
+  const exportedAt = new Date().toLocaleString("ar-SA-u-nu-latn");
 
   return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -202,14 +200,25 @@ ${styleTag}
 <style>
   body{background:#f4f6f6;}
   .wrap{display:block !important; max-width:760px; margin:0 auto; padding:28px 18px 60px;}
-  .page{display:block !important; margin-bottom:10px;}
+  .page{display:block !important; margin-bottom:0;}
+  .table-card, .totalbar, .statcard, .details-card, .header{border:1px solid var(--line);}
+  .section-divider{
+    display:flex; align-items:center; gap:12px;
+    margin:34px 0 22px;
+    color:var(--muted); font-weight:700; font-size:13px;
+  }
+  .section-divider::before, .section-divider::after{
+    content:""; flex:1; height:1px; background:var(--line);
+  }
   .saved-note{text-align:center;color:#6b7a7d;font-size:12.5px;margin-top:26px;}
 </style>
 </head>
 <body class="unlocked">
 <div class="wrap">
   <div class="bismillah">بسم الله الرحمن الرحيم</div>
+  <div class="section-divider">الصفحة 1 — إيرادات الفروع</div>
   ${revSection.outerHTML}
+  <div class="section-divider">الصفحة 2 — التقفيل الشهري</div>
   ${cloSection.outerHTML}
   <p class="saved-note">نسخة محفوظة بتاريخ ${exportedAt} — هذا ملف ثابت لا يتحدث تلقائياً</p>
 </div>
